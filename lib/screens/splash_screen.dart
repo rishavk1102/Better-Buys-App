@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../server_handler.dart';
+import './sellers_screen.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -14,20 +17,32 @@ class _SplashScreenState extends State<SplashScreen> {
   bool showLoadingSellers = false;
   dynamic _timer;
 
+  void getSellers() {
+    ServerHandler()
+        .getSellers()
+        .then((value) =>
+            Navigator.of(context).popAndPushNamed(SellersScreen.routeName))
+        // ignore: avoid_print
+        .catchError((e) => print(e));
+  }
+
   @override
   void initState() {
     super.initState();
 
+    // initializing the timer
     _timer = Timer(
         const Duration(seconds: 3),
         () => {
               showLoadingSellers = true,
               setState(() {}),
+              getSellers(),
             });
   }
 
   @override
   void dispose() {
+    // disposing the timer
     _timer.cancel();
     super.dispose();
   }
@@ -41,6 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // title
             Text(
               'Better Buys',
               style: GoogleFonts.pacifico(
@@ -48,6 +64,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 fontSize: 27,
               ),
             ),
+
+            // loading animation
             if (showLoadingSellers)
               const SizedBox(
                 height: 20.0,
@@ -57,6 +75,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   strokeWidth: 1.5,
                 ),
               ),
+
+            // loading text
             if (showLoadingSellers)
               Padding(
                 padding: const EdgeInsets.only(top: 5.0),
