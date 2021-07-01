@@ -20,8 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void getSellers() {
     ServerHandler()
         .getSellers()
-        .then((value) =>
-            Navigator.of(context).popAndPushNamed(SellersScreen.routeName))
+        .then((value) => Navigator.of(context)
+            .popAndPushNamed(SellersScreen.routeName, arguments: value))
         // ignore: avoid_print
         .catchError((e) => print(e));
   }
