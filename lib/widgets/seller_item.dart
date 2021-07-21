@@ -37,6 +37,7 @@ class SellerItem extends StatelessWidget {
                 ),
                 child: Text(
                   seller.name!,
+                  textAlign: TextAlign.left,
                   style: GoogleFonts.poppins(
                     color: Colors.black,
                     fontSize: 18.0,
