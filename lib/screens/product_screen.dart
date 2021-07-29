@@ -5,14 +5,31 @@ import '../models/seller.dart';
 import '../models/product.dart';
 import '../server_handler.dart';
 
-class ProductScreen extends StatelessWidget {
+class ProductScreen extends StatefulWidget {
   static const routeName = '/product-screen';
 
   const ProductScreen({Key? key}) : super(key: key);
 
   @override
+  State<ProductScreen> createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreen> {
+  void getproductsPerSeller(int sellerId) {
+    ServerHandler()
+        .getProductsPerSeller(sellerId)
+        .then((value) => print(value))
+        .catchError((e) => print(e));
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Seller seller = ModalRoute.of(context)!.settings.arguments as Seller;
+
+    getproductsPerSeller(seller.id!);
+
     return Scaffold(
+      // ignore: sized_box_for_whitespace
       body: Container(
         width: MediaQuery.of(context).size.width,
         child: Column(

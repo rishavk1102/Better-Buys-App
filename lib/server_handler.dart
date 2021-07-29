@@ -29,4 +29,26 @@ class ServerHandler {
       rethrow;
     }
   }
+
+  /// getting list of products per seller
+  Future<List<Product>> getProductsPerSeller(int sellerId) async {
+    try {
+      List<Product> products = [];
+
+      http.Response response = await http
+          .get(Uri.parse('$_baseUrl/gen/products?seller_id=$sellerId'));
+
+      List productsList = (json.decode(response.body))['products'];
+
+      for (Map m in productsList) {
+        products.add(Product.fromMap(m));
+      }
+
+      return products;
+    } catch (e) {
+      // ignore: avoid_print
+      print('Server Handler : error : ' + e.toString());
+      rethrow;
+    }
+  }
 }
