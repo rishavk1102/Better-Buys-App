@@ -46,9 +46,11 @@ class _ProductScreenState extends State<ProductScreen> {
         children: [
           /// Header
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 30.0,
-              vertical: 50.0,
+            padding: const EdgeInsets.only(
+              left: 30.0,
+              right: 30.0,
+              top: 50.0,
+              bottom: 20.0,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,8 +76,7 @@ class _ProductScreenState extends State<ProductScreen> {
           ),
 
           /// loading widgets
-          // ignore: unnecessary_null_comparison
-          if (_products == null)
+          if (_products.isEmpty)
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -100,7 +101,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
           /// List of items
           SizedBox(
-            height: 100.0,
+            height: 160.0,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: _products.length,
