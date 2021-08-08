@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../models/seller.dart';
 import '../models/product.dart';
 import '../server_handler.dart';
+import '../widgets/product_item.dart';
 
 class ProductScreen extends StatefulWidget {
   static const routeName = '/product-screen';
@@ -73,6 +74,7 @@ class _ProductScreenState extends State<ProductScreen> {
           ),
 
           /// loading widgets
+          // ignore: unnecessary_null_comparison
           if (_products == null)
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -102,12 +104,8 @@ class _ProductScreenState extends State<ProductScreen> {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: _products.length,
-              itemBuilder: (context, index) => Container(
-                height: 50.0,
-                width: 50.0,
-                color: Colors.pink,
-                margin: const EdgeInsets.all(5.0),
-              ),
+              itemBuilder: (context, index) =>
+                  ProductItem(product: _products[index], productIndex: index),
             ),
           ),
         ],
